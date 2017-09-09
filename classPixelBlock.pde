@@ -22,4 +22,10 @@ class PixelBlock implements Runnable {
     progress = progressIn;
   }
   
+  void fixColorValues() {
+    for( int i = 0 ; i < numRenderedPixels ; i++ ) {
+      RenderedPixels[i].colorValueFixed = RenderedPixels[i].colorValue;
+    }
+  }
+  
 }

@@ -31,6 +31,12 @@ void draw() {
   // update randomizer progress
   PE.updateRandomizerProgress();
   if( debug ) { println( frameCount + " randomizer progress updated at " + (millis()-st) ); }
+  
+  // start pixel block threads
+  PE.createNewBlockThreads();
+  PE.startBlockThreads();
+  if( debug ) { println( frameCount + " pixel threads started at " + (millis()-st) ); }
+  
   // restart randomizer thread
   PE.createNewRandomizerThread();
   PE.startRandomizerThread();
@@ -39,11 +45,6 @@ void draw() {
   // get pixel data
   int[] pixelColors = PE.outputPixelData();
   if( debug ) { println( frameCount + " pixel data retrieved at " + (millis()-st) ); }
-  
-  // start pixel block threads
-  //PE.createNewBlockThreads();
-  //PE.startBlockThreads();
-  if( debug ) { println( frameCount + " pixel threads started at " + (millis()-st) ); }
   
   // update pixels
   loadPixels();
@@ -55,6 +56,9 @@ void draw() {
   
   PE.waitForBlockThreadsToFinish();
   if( debug ) { println( frameCount + " pixel threads done at " + (millis()-st) ); }
+  
+  PE.fixColorValues();
+  if( debug ) { println( frameCount + " color values fixed at " + (millis()-st) ); }
   
   if( frameCount%60 == 0 ) {
     println( frameCount , frameRate );

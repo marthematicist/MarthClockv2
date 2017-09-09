@@ -4,6 +4,7 @@ class RenderedPixel {
   int G;           // RGB blue
   int B;           // RGB green
   int colorValue;     // color value (hex)
+  int colorValueFixed;
   // RANDOMIZED VALUES
   float fldInitial = 0.5;       // determines whether pixel is bg, outline, or color
   float hueInitial = 180;       // hue

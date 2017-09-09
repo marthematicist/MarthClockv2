@@ -55,11 +55,11 @@ class PixelEngine {
     for( int pb = 0 ; pb < numPixelBlocks ; pb++ ) {
       for( int rp = 0 ; rp < PixelBlocks[pb].numRenderedPixels ; rp++ ) {
         for( int i = 0 ; i < PixelBlocks[pb].RenderedPixels[rp].numChildPixels ; i++ ) {
-          out[ PixelBlocks[pb].RenderedPixels[rp].iPixels[i] ] = PixelBlocks[pb].RenderedPixels[rp].colorValue;
+          out[ PixelBlocks[pb].RenderedPixels[rp].iPixels[i] ] = PixelBlocks[pb].RenderedPixels[rp].colorValueFixed;
         }
       }
-      BlockThreads[pb] = new Thread( PixelBlocks[pb] );
-      BlockThreads[pb].start(); 
+      //BlockThreads[pb] = new Thread( PixelBlocks[pb] );
+      //BlockThreads[pb].start(); 
     }
     return out;
   }
@@ -117,7 +117,16 @@ class PixelEngine {
       BlockThreads[i].start(); 
     }
   }
-  
+  void interruptThreadBlocks() {
+    for( int i = 0 ; i < numPixelBlocks ; i++ ) {
+      BlockThreads[i].interrupt(); 
+    }
+  }
+  void fixColorValues() {
+    for( int i = 0 ; i < numPixelBlocks ; i++ ) {
+      PixelBlocks[i].fixColorValues(); 
+    }
+  }
   void waitForBlockThreadsToFinish() {
     try {
       for( int i = 0 ; i < numPixelBlocks ; i++ ) {
