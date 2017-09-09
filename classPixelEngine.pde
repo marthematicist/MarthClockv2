@@ -56,9 +56,10 @@ class PixelEngine {
       for( int rp = 0 ; rp < PixelBlocks[pb].numRenderedPixels ; rp++ ) {
         for( int i = 0 ; i < PixelBlocks[pb].RenderedPixels[rp].numChildPixels ; i++ ) {
           out[ PixelBlocks[pb].RenderedPixels[rp].iPixels[i] ] = PixelBlocks[pb].RenderedPixels[rp].colorValue;
-          int ind = PixelBlocks[pb].RenderedPixels[rp].iPixels[i];
         }
       }
+      BlockThreads[pb] = new Thread( PixelBlocks[pb] );
+      BlockThreads[pb].start(); 
     }
     return out;
   }

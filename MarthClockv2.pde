@@ -41,8 +41,8 @@ void draw() {
   if( debug ) { println( frameCount + " pixel data retrieved at " + (millis()-st) ); }
   
   // start pixel block threads
-  PE.createNewBlockThreads();
-  PE.startBlockThreads();
+  //PE.createNewBlockThreads();
+  //PE.startBlockThreads();
   if( debug ) { println( frameCount + " pixel threads started at " + (millis()-st) ); }
   
   // update pixels
