@@ -4,6 +4,15 @@ class RenderedPixel {
   int G;           // RGB blue
   int B;           // RGB green
   int colorValue;     // color value (hex)
+  // RANDOMIZED VALUES
+  float fldInitial = 0.5;       // determines whether pixel is bg, outline, or color
+  float hueInitial = 180;       // hue
+  float satInitial = 0.5;       // saturation
+  float briInitial = 0.5;       // brightness
+  float fldFinal = 0.5;
+  float hueFinal = 180;
+  float satFinal = 0.5;
+  float briFinal = 0.5;
   // RENDER LOCATION
   float xRender;      // the x and y coordinates relative to the center
   float yRender;      // of the screen, and rotated/reflected
@@ -92,10 +101,10 @@ class RenderedPixel {
     yBri = yRender * bDetail;
   }
   
-  void updateColor( float tf , float th , float ts , float tb ) {
+  void updateColor( float progress ) {
     // calculate field value: determines if pixel is background, outline, or color
     // based on band settings
-    float fld = constrain( noise( xFld , yFld , tf ) + fOffset , 0 , 1 );
+    float fld = progress*fldInitial + (1-progress)*fldFinal;
     // assume pixel will be background color
     int r = backgroundR;   int g = backgroundG;  int b = backgroundB;
     // check to see if pixel is in each of the bands
@@ -105,9 +114,9 @@ class RenderedPixel {
         if( fld >= bandStart[i] && fld <= bandEnd[i] ) {
           // pixel is color:
           // calculate hue, saturation, and brightness values
-          float hue = constrain( (noise( xHue , yHue , th )*1080)%360 + hOffset , 0 , 360 );
-          float sat = constrain( noise( xSat , ySat , ts ) + sOffset , 0 , 1 );
-          float bri = constrain( noise( xBri , yBri , tb ) + bOffset , 0 , 1 );
+          float hue = lerp360( hueInitial , hueFinal , progress );
+          float sat = (1-progress)*satInitial + progress*satFinal;
+          float bri = (1-progress)*briInitial + progress*briFinal;
           int[] colarray = RGBfromHSB( hue , sat , bri );
           r = colarray[0];  g = colarray[1];  b = colarray[2];
         } else {
@@ -132,6 +141,14 @@ class RenderedPixel {
     out.G = this.G;
     out.B = this.B;
     out.colorValue = this.colorValue;
+    out.fldInitial = this.fldInitial;
+    out.hueInitial = this.hueInitial;
+    out.satInitial = this.satInitial;
+    out.briInitial = this.briInitial;
+    out.fldFinal = this.fldFinal;
+    out.hueFinal = this.hueFinal;
+    out.satFinal = this.satFinal;
+    out.briFinal = this.briFinal;    
     out.xRender = this.xRender;
     out.yRender = this.yRender;
     out.numChildPixels = this.numChildPixels;

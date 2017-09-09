@@ -1,10 +1,7 @@
 class PixelBlock implements Runnable {
   int numRenderedPixels;
   RenderedPixel[] RenderedPixels;
-  float tf = 0;
-  float th = 0;
-  float ts = 0;
-  float tb = 0;
+  float progress;
   
   PixelBlock( ArrayList<RenderedPixel> RPin ) {
     this.numRenderedPixels = RPin.size();
@@ -17,12 +14,12 @@ class PixelBlock implements Runnable {
   void run() {
     // update all pixels
     for( int i = 0 ; i < numRenderedPixels ; i++ ) {
-      RenderedPixels[i].updateColor( tf , th , ts , tb );
+      RenderedPixels[i].updateColor( progress );
     }
   }
   
-  void setTimes( float tfIn , float thIn , float tsIn , float tbIn ) {
-    tf = tfIn;  th = thIn;  ts = tsIn;  tb = tbIn;
+  void setProgress( float progressIn ) {
+    progress = progressIn;
   }
   
 }

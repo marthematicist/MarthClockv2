@@ -10,30 +10,40 @@ void setup() {
   yRes = float(height);
   
   PE = new PixelEngine(3);
+  PE.createNewRandomizerThread();
+  PE.startRandomizerThread();
 }
 
 void draw() {
+  // Randomizer:
+  // stop randomizer
+  PE.interruptRandomizerThread();
+  PE.waitForRandomizerThreadToFinish();
+  // if randomizer is done, update with new random numbers
+  if( PE.randomNumbersReady() ) {
+    PE.updateRandomNumbers();
+  }
+  // update randomizer progress
+  PE.updateRandomizerProgress();
+  // restart randomizer thread
+  PE.createNewRandomizerThread();
+  PE.startRandomizerThread();
   
+  // get pixel data
   int[] pixelColors = PE.outputPixelData();
-  PE.createNewThreads();
-  PE.startThreads();
   
+  // start pixel block threads
+  PE.createNewBlockThreads();
+  PE.startBlockThreads();
+  
+  // update pixels
   loadPixels();
   for( int i = 0 ; i < width*height ; i++ ) {
-    int r = 128;
-    int g = 0;
-    int b =255;
-    int cv = ( 
-      (255<<24) | 
-      (round(constrain(r,0,255))<<16) | 
-      (round(constrain(g,0,255))<<8) | 
-      (round(constrain(b,0,255)) ) 
-    );
     pixels[i] = pixelColors[i];
   }
   updatePixels();
   
-  PE.waitForThreadsToFinish();
+  PE.waitForBlockThreadsToFinish();
   println( frameCount );
   
 }
