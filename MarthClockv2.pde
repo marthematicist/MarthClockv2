@@ -43,14 +43,12 @@ void draw() {
   if( debug ) { println( frameCount + " randomizer thread started at " + (millis()-st) ); }
   
   // get pixel data
-  int[] pixelColors = PE.outputPixelData();
-  if( debug ) { println( frameCount + " pixel data retrieved at " + (millis()-st) ); }
+  //int[] pixelColors = PE.outputPixelData();
+  //if( debug ) { println( frameCount + " pixel data retrieved at " + (millis()-st) ); }
   
   // update pixels
   loadPixels();
-  for( int i = 0 ; i < width*height ; i++ ) {
-    pixels[i] = pixelColors[i];
-  }
+  PE.writePixelData();
   updatePixels();
   if( debug ) { println( frameCount + " pixels drawn at " + (millis()-st) ); }
   

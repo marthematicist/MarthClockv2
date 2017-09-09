@@ -58,10 +58,18 @@ class PixelEngine {
           out[ PixelBlocks[pb].RenderedPixels[rp].iPixels[i] ] = PixelBlocks[pb].RenderedPixels[rp].colorValueFixed;
         }
       }
-      //BlockThreads[pb] = new Thread( PixelBlocks[pb] );
-      //BlockThreads[pb].start(); 
     }
     return out;
+  }
+  
+  void writePixelData() {
+    for( int pb = 0 ; pb < numPixelBlocks ; pb++ ) {
+      for( int rp = 0 ; rp < PixelBlocks[pb].numRenderedPixels ; rp++ ) {
+        for( int i = 0 ; i < PixelBlocks[pb].RenderedPixels[rp].numChildPixels ; i++ ) {
+          pixels[ PixelBlocks[pb].RenderedPixels[rp].iPixels[i] ] = PixelBlocks[pb].RenderedPixels[rp].colorValueFixed;
+        }
+      }
+    }
   }
   
   void updateRandomNumbers() {
