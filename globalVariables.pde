@@ -4,11 +4,12 @@ float xRes;           // screen resolution
 float yRes;           // screen resolution
 PGraphics pg;         // graphics buffer (clock)
 int numSpokes = 12;   // number of spokes in kaleidoscope background
-
+Clock clock;
+PixelEngine PE;
 
 // SETTINGS
 float fDetail = 0.010;
-float hDetail = 0.002;
+float hDetail = 0.0002;
 float sDetail = 0.029;
 float bDetail = 0.049;
 float fSpeed = 0.010;
@@ -20,6 +21,7 @@ float fOffset = 0;
 float hOffset = 0;
 float sOffset = 0.25;
 float bOffset = 0.25;
+float bandOffset = 30;
 
 float[] bandStart = { 0.20 , 0.37 , 0.47 , 0.57 , 0.70 };
 float[] bandEnd   = { 0.30 , 0.43 , 0.53 , 0.63 , 0.80 };

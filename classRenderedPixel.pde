@@ -115,7 +115,7 @@ class RenderedPixel {
         if( fld >= bandStart[i] && fld <= bandEnd[i] ) {
           // pixel is color:
           // calculate hue, saturation, and brightness values
-          float hue = lerp360( hueInitial , hueFinal , progress );
+          float hue = (lerp360( hueInitial , hueFinal , progress )+bandOffset*i)%360;
           float sat = lerp(satInitial,satFinal,progress);
           float bri = lerp(briInitial,briFinal,progress);
           int[] colarray = RGBfromHSB( hue , sat , bri );
