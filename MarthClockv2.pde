@@ -44,6 +44,8 @@ void draw() {
   updatePixels();
   
   PE.waitForBlockThreadsToFinish();
-  println( frameCount );
   
+  if( frameCount%60 == 0 ) {
+    println( frameCount , frameRate );
+  }
 }

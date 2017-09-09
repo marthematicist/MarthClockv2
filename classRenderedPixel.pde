@@ -104,7 +104,7 @@ class RenderedPixel {
   void updateColor( float progress ) {
     // calculate field value: determines if pixel is background, outline, or color
     // based on band settings
-    float fld = progress*fldInitial + (1-progress)*fldFinal;
+    float fld = lerp(fldInitial,fldFinal,progress);
     // assume pixel will be background color
     int r = backgroundR;   int g = backgroundG;  int b = backgroundB;
     // check to see if pixel is in each of the bands
@@ -115,8 +115,8 @@ class RenderedPixel {
           // pixel is color:
           // calculate hue, saturation, and brightness values
           float hue = lerp360( hueInitial , hueFinal , progress );
-          float sat = (1-progress)*satInitial + progress*satFinal;
-          float bri = (1-progress)*briInitial + progress*briFinal;
+          float sat = lerp(satInitial,satFinal,progress);
+          float bri = lerp(briInitial,briFinal,progress);
           int[] colarray = RGBfromHSB( hue , sat , bri );
           r = colarray[0];  g = colarray[1];  b = colarray[2];
         } else {

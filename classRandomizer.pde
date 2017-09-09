@@ -76,16 +76,15 @@ float lerp360( float a1 , float a2 , float amt ) {
   float output = 0;
   if( a2 > a1 ) {
     if( a2 - a1 <= 180 ) {
-      output = ( (a1)*(1-amt) + (a2)*amt );
+      output = lerp( a1 , a2 , amt );
     } else {
-      output = ( (a1+360)*(1-amt) + (a2)*amt )%360;
+      output = lerp( a1 + 360 , a2 , amt ) % 360;
     }
   } else {
     if( a1 - a2 <= 180 ) {
-      output = ( (a1)*(1-amt) + (a2)*amt );
-      lerp( a1 , a2 , amt );
+      output = lerp( a1 , a2 , amt );
     } else {
-      output = ( (a1)*(1-amt) + (a2+360)*amt )%360;
+      output = lerp( a1 , a2 + 360 , amt ) % 360;
     }
   }
   return output;
